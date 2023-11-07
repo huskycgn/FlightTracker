@@ -3,10 +3,10 @@ import telebot
 from cred import *
 
 ###TEST URL###
-BASE_URL = 'https://test.api.amadeus.com/'
+# BASE_URL = 'https://test.api.amadeus.com/'
 
 ###PROD URL###
-# BASE_URL = 'https://api.amadeus.com/'
+BASE_URL = 'https://api.amadeus.com/'
 
 
 def get_access_token():
@@ -36,10 +36,10 @@ def get_flight_data(origin: type(str),
                                        f'&travelClass={bookclass}'
                                        f'&nonStop=true',
                                    headers=auth_header)
-
     return flight_data.json()
 
 
 def send_telegram(message):
     bot = telebot.TeleBot(token=TELE_TOKEN)
     bot.send_message(chat_id=TELE_CHAT_ID, text=message)
+
