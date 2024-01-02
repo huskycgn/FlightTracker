@@ -16,10 +16,10 @@ class Flight:
 # flight data
 PAX = 2
 DEP = 'FRA'
-DEP_DATE = '2024-06-01'
-ARR = 'DFW'
-RET_DATE = '2024-06-30'
-CLASS = 'PREMIUM_ECONOMY'
+DEP_DATE = '2024-12-31'
+ARR = 'JFK'
+RET_DATE = '2025-01-03'
+CLASS = 'ECONOMY'
 ###
 
 rawdata = get_flight_data(origin=DEP,
@@ -29,30 +29,37 @@ rawdata = get_flight_data(origin=DEP,
                           pax=PAX,
                           bookclass=CLASS)
 
-offers = rawdata['data']
+try:
+    offers = rawdata['data']
+    flights = True
+except KeyError:
+    offers = []
+    flights = False
 
+if flights:
 
-flightlist = []
+    flightlist = []
 
-for i in offers:
-    flightlist.append(Flight(
-        origin=i['itineraries'][0]['segments'][0]['departure']['iataCode'],
-        destination=i['itineraries'][1]['segments'][0]['departure']['iataCode'],
-        depdate=i['itineraries'][0]['segments'][0]['departure']['at'],
-        retdate=i['itineraries'][1]['segments'][0]['departure']['at'],
-        carrier=i['itineraries'][0]['segments'][0]['operating']['carrierCode'],
-        price=i['price']['total']))
+    for i in offers:
+        flightlist.append(Flight(
+            origin=i['itineraries'][0]['segments'][0]['departure']['iataCode'],
+            destination=i['itineraries'][1]['segments'][0]['departure']['iataCode'],
+            depdate=i['itineraries'][0]['segments'][0]['departure']['at'],
+            retdate=i['itineraries'][1]['segments'][0]['departure']['at'],
+            carrier=i['itineraries'][0]['segments'][0]['operating']['carrierCode'],
+            price=i['price']['total']))
 
-# print(flightlist[0].carrier)
+    # print(flightlist[0].carrier)
 
-for f in flightlist:
+    for f in flightlist:
+        output = (f"*********\n"
+                  f"Flug {f.origin} -> {f.destination} am\n{f.depdate}\nmit {f.carrier} "
+                  f"kostet derzeit EUR {f.price} für {PAX} Personen."
+                  f"\n"
+                  f"*********")
 
-    output = (f"*********\n"
-              f"Flug {f.origin} -> {f.destination} am\n{f.depdate}\nmit {f.carrier} "
-              f"kostet derzeit EUR {f.price} für {PAX} Personen."
-              f"\n"
-              f"*********")
+        print(output)
 
-    print(output)
-
-    send_telegram(output)
+        send_telegram(output)
+else:
+    print(f"Noch Keine Flüge für {DEP}->{ARR} gefunden")
