@@ -16,9 +16,9 @@ class Flight:
 # flight data
 PAX = 2
 DEP = 'FRA'
-DEP_DATE = '2024-12-31'
+DEP_DATE = '2024-12-28'
 ARR = 'JFK'
-RET_DATE = '2025-01-03'
+RET_DATE = '2025-01-07'
 CLASS = 'ECONOMY'
 ###
 
@@ -53,7 +53,7 @@ if flights:
 
     for f in flightlist:
         output = (f"*********\n"
-                  f"Flug {f.origin} -> {f.destination} am\n{f.depdate}\nmit {f.carrier} "
+                  f"Flug {f.origin} -> {f.destination} von\n{f.depdate} bis {f.retdate}\nmit {f.carrier} "
                   f"kostet derzeit EUR {f.price} für {PAX} Personen."
                   f"\n"
                   f"*********")
