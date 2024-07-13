@@ -57,7 +57,7 @@ if flights:
     for f in flightlist:
         output = (f"*********\n"
                   f"Flug {f.origin} -> {f.destination} von\n{f.depdate} bis {f.retdate}\nmit {f.carrier} "
-                  f"kostet derzeit EUR {f.price} für {PAX} Personen."
+                  f"kostet derzeit EUR {f.price} für {PAX} Personen in {CLASS}."
                   f"\n"
                   f"*********")
 
