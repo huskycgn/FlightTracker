@@ -16,10 +16,13 @@ class Flight:
 # flight data
 PAX = 2
 DEP = 'FRA'
-DEP_DATE = '2024-12-28'
-ARR = 'JFK'
-RET_DATE = '2025-01-07'
-CLASS = 'ECONOMY'
+DEP_DATE = '2025-05-01'
+ARR = 'IAH'
+RET_DATE = '2025-05-31'
+CLASS = 'PREMIUM_ECONOMY'
+# CLASS = 'ECONOMY'
+# CLASS = 'BUSINESS'
+# CLASS = 'FIRST'
 ###
 
 rawdata = get_flight_data(origin=DEP,
